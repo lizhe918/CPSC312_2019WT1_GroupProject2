@@ -28,7 +28,7 @@ solve(X,[]):-
     length(X, 81).
 
 solve(X,[(V, P)|R]):-
-    solve1(X,(V, P)),
+    solveHelper(X,(V, P)),
     append(X,[(V, P)],A),
     solve(A, R).
 
