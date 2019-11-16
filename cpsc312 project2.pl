@@ -70,7 +70,6 @@ possiablePosition(X,(V, P)):-
     range(value, V1),
     member(V, V1).
 
-
 % it is true if S is a complete sudoku
 s(S):-
     length(S, 81),
