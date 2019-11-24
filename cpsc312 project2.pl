@@ -39,7 +39,10 @@ solve(X,[(V, P)|R]):-
 %     blockCheck(A, B),
 %     solve(A, R).
 
-
+% it is true if the second pair is an answer for the first incomplete sudoku
+solveOnce(X,Y):-
+      solve(X, R),
+      member(Y,R).
 
 % solveHelper(Sudoku, (Value, Position)) is true if the Value-Position pair doesn't conflict with the Sudoku.
 solveHelper(X,(V, P)):-
@@ -86,7 +89,7 @@ baseOn([H|R], Y):-
     member(H,Y),
     baseOn(R,Y).
 
-% It is true, if all the value for position is in range 
+% It is true, if all the value for position is in range
 % from 1 to 81 and value is in range from 1 to 9.
 withInRange([]).
 withInRange([(V, P)|R]):-
