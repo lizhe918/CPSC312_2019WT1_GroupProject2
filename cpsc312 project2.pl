@@ -41,7 +41,7 @@ solve(X,[(V, P)|R]):-
 
 % it is true if the second pair is an answer for the first incomplete sudoku
 solveOnce(X,Y):-
-      solve(X, R),
+      solve(X,R),
       member(Y,R).
 
 % solveHelper(Sudoku, (Value, Position)) is true if the Value-Position pair doesn't conflict with the Sudoku.
