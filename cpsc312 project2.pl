@@ -21,11 +21,13 @@
 % solve([(2,1),(7,2),(4,3),(9,5),(1,6),(5,9),(1,10),(5,13),(9,17),(6,19),(3,24),(2,25),(8,26),(1,30),(9,31),(8,36),(5,39),(1,40),(6,43),(7,46),(8,50),(3,54),(4,55),(2,57),(9,63),(7,71),(8,73),(3,76),(4,77),(9,78)],S).
 % solve([], S).
 
+
+% it is true if the second sudoku is a answer for the first incomplete sudoku
 solve(X,S):-
     withInRange(X),
     solveHelper(X,S).
 
-% it is true if the second sudoku is a answer for the first incomplete sudoku
+
 solveHelper(X,[]):-
     length(X, 81).
 
