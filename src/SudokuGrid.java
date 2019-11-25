@@ -142,9 +142,17 @@ public class SudokuGrid extends JPanel {
                 try {
                     if(!text.trim().equals("")){
                         number = Integer.parseInt(text.trim());
-                        int transitNumber = transitNumber(y,x);
-                        Pair<Integer,Integer> pair = new Pair(number,transitNumber);
-                        queryArray.add(pair);
+                        if(number == 1 || number == 2 || number == 3 || number == 4 || number == 5 || number == 6 || number ==7 || number == 8 || number == 9){
+                            int transitNumber = transitNumber(y,x);
+                            Pair<Integer,Integer> pair = new Pair(number,transitNumber);
+                            queryArray.add(pair);
+                        }else{
+                            grid[y][x].setText("");
+                            JOptionPane.showMessageDialog(this,
+                                    "Value "+(number + "")+" is out of range",
+                                    "Error",
+                                    JOptionPane.ERROR_MESSAGE);
+                        }
                     }
                 } catch (NumberFormatException ex) {
                         grid[y][x].setText("");
@@ -157,7 +165,7 @@ public class SudokuGrid extends JPanel {
             }
 
             try {
-                Query q1 = new Query("consult('D:/Github/CPSC312-2019WT1-Project2/cpsc312 project2.pl')");
+                // Query q1 = new Query("consult('D:/Github/CPSC312-2019WT1-Project2/cpsc312 project2.pl')");
                 Variable S = new Variable("S");
                 Query q = new Query("solveOnce("+convertPairArray(queryArray)+", S)");
                 String solution;
@@ -166,6 +174,11 @@ public class SudokuGrid extends JPanel {
                     int value = Integer.parseInt(solution.substring(1,2));
                     int position = Integer.parseInt(solution.substring(4,solution.length()-1));
                     grid[transitRow(position)][transitColumn(position)].setText(value+"");
+                }else{
+                    JOptionPane.showMessageDialog(this,
+                            "There must be something wrong in the sudoku",
+                            "Error",
+                            JOptionPane.ERROR_MESSAGE);
                 }
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this,
@@ -185,9 +198,17 @@ public class SudokuGrid extends JPanel {
                 try {
                     if(!text.trim().equals("")){
                         number = Integer.parseInt(text.trim());
-                        int transitNumber = transitNumber(y,x);
-                        Pair<Integer,Integer> pair = new Pair(number,transitNumber);
-                        queryArray.add(pair);
+                        if(number == 1 || number == 2 || number == 3 || number == 4 || number == 5 || number == 6 || number ==7 || number == 8 || number == 9){
+                            int transitNumber = transitNumber(y,x);
+                            Pair<Integer,Integer> pair = new Pair(number,transitNumber);
+                            queryArray.add(pair);
+                        }else{
+                            grid[y][x].setText("");
+                            JOptionPane.showMessageDialog(this,
+                                    "Value "+(number + "")+" is out of range",
+                                    "Error",
+                                    JOptionPane.ERROR_MESSAGE);
+                        }
                     }
                 } catch (NumberFormatException ex) {
                     grid[y][x].setText("");
@@ -200,15 +221,22 @@ public class SudokuGrid extends JPanel {
         }
 
         try {
-            Query q1 = new Query("consult('D:/Github/CPSC312-2019WT1-Project2/cpsc312 project2.pl')");
+            // Query q1 = new Query("consult('D:/Github/CPSC312-2019WT1-Project2/cpsc312 project2.pl')");
             Variable S = new Variable("S");
             Query q = new Query("solveOnce("+convertPairArray(queryArray)+", S)");
             String solution;
-            while(q.hasMoreSolutions()){
-                solution = q.nextSolution().get("S").toString().substring(3);
-                int value = Integer.parseInt(solution.substring(1,2));
-                int position = Integer.parseInt(solution.substring(4,solution.length()-1));
-                grid[transitRow(position)][transitColumn(position)].setText(value+"");
+            if(q.hasSolution()) {
+                while (q.hasMoreSolutions() && !isFull(grid)) {
+                    solution = q.nextSolution().get("S").toString().substring(3);
+                    int value = Integer.parseInt(solution.substring(1, 2));
+                    int position = Integer.parseInt(solution.substring(4, solution.length() - 1));
+                    grid[transitRow(position)][transitColumn(position)].setText(value + "");
+                }
+            }else{
+                JOptionPane.showMessageDialog(this,
+                        "There must be something wrong in the sudoku",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE);
             }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this,
@@ -256,6 +284,17 @@ public class SudokuGrid extends JPanel {
             returnString = returnString + "]";
         }
         return returnString;
+    }
+
+    Boolean isFull(JTextField[][] grid) {
+        for (int y = 0; y < dimension; ++y) {
+            for (int x = 0; x < dimension; ++x) {
+                String text = grid[y][x].getText();
+                if (text.equals(""))
+                    return false;
+            }
+        }
+        return true;
     }
 
 }
