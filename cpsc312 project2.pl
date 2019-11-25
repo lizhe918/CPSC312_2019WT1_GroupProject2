@@ -27,7 +27,6 @@ solve(X,S):-
     withInRange(X),
     solveHelper(X,S).
 
-
 solveHelper(X,[]):-
     length(X, 81).
 
