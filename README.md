@@ -12,7 +12,7 @@ A hint is to give the first empty cell in the present sudoku while a solution is
 
 -------------------------------------------------
 
-##Improvement from Project1
+## Improvement from Project1
 
 Since we also did the Sudoku for Project1, we make some improvements for our Project2.
 
