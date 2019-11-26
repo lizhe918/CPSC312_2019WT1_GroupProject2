@@ -2,7 +2,7 @@ import org.jpl7.Query;
 
 public class Main {
     public static void main(String[] args) {
-        SudokuGUI sudokuGUI = new SudokuGUI();
+        new SudokuGUI();
         //Query q1 = new Query("consult('D:/Github/CPSC312-2019WT1-Project2/cpsc312 project2.pl')");
         Query q1 = new Query("consult('cpsc312 project2.pl')");
         System.out.println(q1.hasSolution());

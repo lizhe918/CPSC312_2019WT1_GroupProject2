@@ -114,16 +114,6 @@ public class SudokuGrid extends JPanel {
         });
     }
 
-    int getDimension() {
-        return dimension;
-    }
-
-    private void addSpace(JTextField field) {
-        if (field.getText().isEmpty()) {
-            field.setText(" ");
-        }
-    }
-
     void clearAll() {
         for (JTextField[] row : grid) {
             for (JTextField field : row) {
